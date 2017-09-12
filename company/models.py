@@ -8,10 +8,10 @@ from django.db import models
 class Company(models.Model):
     name = models.CharField(max_length=30)
     create_time = models.DateTimeField(auto_now=True)
-    update_time = models.DateTimeField(auto_now=True)
     
 class Detail(models.Model):
     name = models.CharField(max_length=30)
     create_time = models.DateTimeField(auto_now=True)
+    update_time = models.DateTimeField(auto_now=True)
     account_version = models.CharField(max_length=30)
 

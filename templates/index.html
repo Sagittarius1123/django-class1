@@ -10,7 +10,7 @@
       <div class="ui modal">
         <i class="close icon"></i>
         <div class="header">
-          Profile Picture
+          Company Name
         </div>
        
           
@@ -26,7 +26,8 @@
                 <td>Cell</td>
               </tr>
             </tbody>
-        </table>
+         </table> 
+
         
         <div class="actions">
           <div class="ui black deny button">
@@ -53,10 +54,11 @@
                           <td>Name</td>
                           <td>Lastupate</td>
                           <td>detail</td>
-                          <td><button class="small ui inverted green button">编辑</button></td>
+                          <td><button class="small ui inverted green button">Edit</button></td>
                         </tr>
                 </tbody>
         </table>
+        <div class="ui right floated small primary labeled icon button"><i class="user icon"></i> 添加企业信息 </div>
 
 
     <script src="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.js"></script>
@@ -69,6 +71,16 @@
           .modal('show')
         ;
       })
+
+      var btn = $('.ui.right.floated.small.primary.labeled.icon.button')
+      btn.click(() => {
+        console.log('click')
+        $('.ui.modal')
+          .modal('show')
+        ;
+      })
+
+
     </script>
 
  

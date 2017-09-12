@@ -1,0 +1,77 @@
+<html>
+
+  <head>
+    <title>文档的标题</title>
+    <link href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    </head>
+
+  <body>
+      <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Profile Picture
+        </div>
+       
+          
+          <table class="ui celled table">
+           
+            <tbody>
+              <tr>
+                <td>Cell</td>
+                <td>Cell</td>
+              </tr>
+              <tr>
+                <td>Cell</td>
+                <td>Cell</td>
+              </tr>
+            </tbody>
+        </table>
+        
+        <div class="actions">
+          <div class="ui black deny button">
+            Cancel
+          </div>
+          <div class="ui positive right labeled icon button">
+            Done
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
+      </div>
+      <table class="ui celled table">
+                <thead>
+                  <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Lastupate</th>
+                  <th>detail</th>
+                  <th>-</th>
+                </tr></thead>
+                <tbody>
+                        <tr>
+                          <td>id</td>
+                          <td>Name</td>
+                          <td>Lastupate</td>
+                          <td>detail</td>
+                          <td><button class="small ui inverted green button">编辑</button></td>
+                        </tr>
+                </tbody>
+        </table>
+
+
+    <script src="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script>
+
+      var btn = $('.ui.inverted.green.button')
+      btn.click(() => {
+        console.log('click')
+        $('.ui.modal')
+          .modal('show')
+        ;
+      })
+    </script>
+
+ 
+  </body>
+
+</html>

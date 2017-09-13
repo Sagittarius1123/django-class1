@@ -25,7 +25,7 @@ SECRET_KEY = 'z!!x)-up05_*xy-!)basm8y(l%%7xzw$*2e=y5q7ahq1f)r*76'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '10.64.211.251']
 
 
 # Application definition
@@ -122,3 +122,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    ("css", os.path.join(STATIC_ROOT,'css')),
+    ("js", os.path.join(STATIC_ROOT,'js')),
+    ("images", os.path.join(STATIC_ROOT,'images')),
+)

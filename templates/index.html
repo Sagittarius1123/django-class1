@@ -4,6 +4,10 @@
     <title>文档的标题</title>
     <link href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <link href="http://cdn.staticfile.org/semantic-ui/2.2.7/semantic.min.css" rel="stylesheet">
+    <link href="/semantic-ui-calendar/dist/calendar.css" rel="stylesheet" >
+  
     </head>
 
   <body>
@@ -105,9 +109,15 @@
                 </tbody>
         </table>
 
-      <div class="ui right floated small primary labeled icon button"><i class="user icon"></i> 添加企业信息 </div>
+      <div class="ui right floated small primary labeled icon button"><i class="user icon"></i> 添加企业 </div>
 
-
+     <div class="ui calendar" id="example1">
+      <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <input type="text" placeholder="Date" value="2017-06-01">
+      </div>
+      </div>
+       
     <script src="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.js"></script>
     <script>
 
@@ -125,10 +135,18 @@
           .modal('show')
         ;
       })
-
-
     </script>
 
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/semantic-ui/2.2.7/semantic.min.js"></script>
+    <script src="/semantic-ui-calendar/dist/calendar.js" charset="utf-8"></script>
+    <script>
+      var btn = $('.ui.calendar')
+      btn.click(() => {
+        console.log('click')
+        $('#example1').calendar({type: 'date'});
+      })
+    </script>
  
   </body>
 

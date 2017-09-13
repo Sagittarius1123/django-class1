@@ -5,6 +5,6 @@ def index(request):
     return render_to_response('index.html')
     
 def add(request):
-    if request.method == 'POST':  
-        form = ContactForm(request.POST)
-        print form
+     if request.method == 'POST':
+        received_json_data = json.loads(request.body)
+        print (received_json_data)

@@ -2,7 +2,7 @@
 
   {% load staticfiles %}
   <head>
-    <title>文档的标题</title>
+    <title>私有部署客户信息维护</title>
     <link href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
@@ -17,7 +17,7 @@
       <div class="ui modal add">
         <i class="close icon"></i>
         <div class="header">
-          Company Name
+          Edit
         </div>
        
           
@@ -58,31 +58,27 @@
       <div class="ui modal detail">
         <i class="close icon"></i>
         <div class="header">
-          Company Name
+          Add Company
         </div>
+      
        
           
-          <table class="ui celled table">
-           
-            <tbody>
-              <tr>
-                <td>公司名称</td>
-                <td><div class="mini ui input"><input type="text" placeholder=""></div></td>
-              </tr>
-              <tr>
-                <td>首次部署日期</td>
-                <td>  
-                  <div class="ui calendar" id="example">
-                      <div class="ui input left icon">
-                      <i class="calendar icon"></i>
-                      <input type="text" placeholder="Date" value="2017-06-01">
-                      </div>
-                    </div>
-                </td>
-              </tr>
-            </tbody>
-         </table> 
-
+         
+         <div class="ui form" style="padding: 1rem;">
+            <div class="inline field">
+              <label>企业名称</label>
+              <input id="companyName" type="text" placeholder="Company Name">
+            </div>
+            <div class="inline field">
+                <label>首次部署日期</label>
+              <div class="ui calendar " id="example" style="display: inline-block">
+                <div class="ui input left icon">
+                <i class="calendar icon"></i>
+                <input id="date" type="text" placeholder="Date" value="June 1, 2017">
+                </div>  
+              </div>
+            </div>
+          </div>
         
         <div class="actions">
           <div class="ui black deny button">
@@ -154,8 +150,22 @@
     <script>
       var addBtn = $('#addBtn')
       addBtn.click(function () {
-        var formData = $('#comInfo').val
-        $.post('/ssss',formData, function())
+        var formData = new FormData()
+        var date = $('#date').val()
+        var companyName = $('#companyName').val()
+        formData.append('date', date)
+        formData.append('companyName', companyName)
+        console.log(formData)
+
+        $.ajax({
+          url: '/add',
+          type: 'POST',
+          cache: false,
+          data: formData,
+          processData: false,
+          contentType: false
+        }).done(function(res) {
+        }).fail(function(res) {})
       })
     </script>
     

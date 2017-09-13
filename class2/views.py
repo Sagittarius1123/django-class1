@@ -7,4 +7,4 @@ def index(request):
 def add(request):
      if request.method == 'POST':
         received_json_data = json.loads(request.body)
-        print (received_json_data)
+        print (received_json_data1)

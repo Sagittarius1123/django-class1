@@ -7,11 +7,18 @@ from django.db import models
 
 class Company(models.Model):
     name = models.CharField(max_length=30)
-    create_time = models.DateTimeField(auto_now=True)
+    create_time = models.DateTimeField('创建时间',auto_now=True)
+    update_time = models.DateTimeField('更新时间',auto_now=True)
+
+    def __unicode__(self):
+        return self.name
     
 class Detail(models.Model):
     name = models.CharField(max_length=30)
-    create_time = models.DateTimeField(auto_now=True)
-    update_time = models.DateTimeField(auto_now=True)
+    create_time = models.DateTimeField('创建时间',auto_now=True)
+    update_time = models.DateTimeField('更新时间',auto_now=True)
     account_version = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.name
 

@@ -7,7 +7,7 @@ from django.db import models
 
 class Company(models.Model):
     name = models.CharField(max_length=30)
-    create_time = models.DateField('创建时间',auto_now=True)
+    create_time = models.DateField('创建时间',auto_now=False)
     update_time = models.DateField('更新时间',auto_now=True)
 
     def __unicode__(self):

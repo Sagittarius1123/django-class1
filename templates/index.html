@@ -74,7 +74,7 @@
               <div class="ui calendar " id="example" style="display: inline-block">
                 <div class="ui input left icon">
                 <i class="calendar icon"></i>
-                <input id="date" type="text" placeholder="Date" value="June 1, 2017">
+                <input id="date" type="text" placeholder="Date" value="July 1, 2017">
                 </div>  
               </div>
             </div>
@@ -170,6 +170,7 @@
           processData: false,
           contentType: false
         }).done(function(res) {
+          location.reload();
         }).fail(function(res) {})
       })
     </script>

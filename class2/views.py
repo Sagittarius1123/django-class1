@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import *
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
@@ -22,3 +22,11 @@ def add(request):
         obj = Company(name=companyName,create_time=dtstr,update_time='')
         obj.save()
         return render_to_response('index.html')
+
+
+def rm(request):
+    if request.method == 'GET':
+        id = request.GET['id']
+        date = Company.objects.get(id=id) 
+        date.delete()
+    return HttpResponseRedirect('/')

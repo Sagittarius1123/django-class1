@@ -112,29 +112,30 @@
                           <td>{{ company.name }}</td>
                           <td>{{ company.create_time }}</td>
                           <td>{{ company.update_time }}</td>
-                          <td width="15%"><button class="small ui inverted green button">Edit</button>
-                              <button class="small ui inverted red button">Delete</button>
+                          <td width="15%">
+                            <a href="/edit?id={{company.id}}"><button class="small ui inverted green button" id=editBtn>Edit</button></a>
+                            <a href="/rm?id={{company.id}}"><button class="small ui inverted red button" id=rmBtn>Delete</button></a>
                           </td>
                         </tr>
                       {% endfor %}
                 </tbody>
         </table>
 
-      <div class="ui right floated small primary labeled icon button"><i class="user icon"></i> 添加企业 </div>
+      <div class="ui right floated small primary labeled icon button" id=addompanyBtn><i class="user icon"></i> 添加企业 </div>
 
    
        
     <script src="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.js"></script>
     <script>
 
-      var btn = $('.ui.inverted.green.button')
+      var btn = $('#editBtn')
       btn.click(() => {
         $('.ui.modal.add')
           .modal('show')
         ;
       })
 
-      var btn = $('.ui.right.floated.small.primary.labeled.icon.button')
+      var btn = $('#addompanyBtn')
       btn.click(() => {
         console.log('click')
         $('.ui.modal.detail')
@@ -160,7 +161,7 @@
         var companyName = $('#companyName').val()
         formData.append('date', date)
         formData.append('companyName', companyName)
-        console.log(formData)
+        
 
         $.ajax({
           url: '/add/',

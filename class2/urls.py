@@ -26,5 +26,4 @@ urlpatterns = [
     url(r'^rm/',views.rm),
     url(r'^admin/', admin.site.urls),
 
-    
 ]

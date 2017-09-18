@@ -130,15 +130,38 @@
                           <td>{{ company.create_time }}</td>
                           <td>{{ company.update_time }}</td>
                           <td width="15%">
-                            <button class="small ui inverted green button" id="{{company.id}}" name="editBtn">Edit</button></a>
-                            <a href="/rm?id={{company.id}}"><button class="small ui inverted red button" id=rmBtn>Delete</button></a>
+                            <button class="small ui inverted green button" id="{{company.id}}" name="editBtn">Edit</button>
+                            <!--<a href="/rm?id={{company.id}}">-->
+                            <button class="small ui inverted red button" id="{{company.id}}" name="rmBtn">Delete</button>
                           </td>
                         </tr>
                       {% endfor %}
                 </tbody>
         </table>
 
-      <div class="ui right floated small primary labeled icon button" id=addompanyBtn><i class="user icon"></i> 添加企业 </div>
+
+      <div class="ui basic modal">
+        <div class="ui icon header">
+          <i class="archive icon"></i>
+          ！！！删除企业！！！
+        </div>
+        <div class="content">
+          <p>再次确认是否要删除？</p>
+        </div>
+        <div class="actions">
+          <div class="ui grey basic cancel inverted button">
+            <i class="remove icon"></i>
+            Cancel
+          </div>
+          <div class="ui red ok inverted button">
+            <i class="checkmark icon"></i>
+            Yes！
+          </div>
+        </div>
+      </div>
+
+
+      <div class="ui right floated small primary labeled icon button" id=addcompanyBtn><i class="user icon"></i> 添加企业 </div>
 
    
        
@@ -167,10 +190,20 @@
         ;
       })
 
-      var btn = $('#addompanyBtn')
+      var btn = $('#addcompanyBtn')
       btn.click(() => {
         console.log('click')
         $('.ui.modal.detail')
+          .modal('setting', 'closable', false)
+          .modal('show')
+        ;
+      })
+
+      var btn = $('button[name="rmBtn"]')
+      btn.click(() => {
+        console.log('click')
+        $('.ui.basic.modal')
+          .modal('setting', 'closable', false)
           .modal('show')
         ;
       })

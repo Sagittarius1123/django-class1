@@ -3,6 +3,7 @@
   {% load staticfiles %}
   <head>
     <title>私有部署客户信息维护</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     <link href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
@@ -14,32 +15,48 @@
     </head>
 
   <body>
-      <div class="ui modal add">
+      <div class="ui modal" id = 'comInfo' >
         <i class="close icon"></i>
         <div class="header">
           Edit
         </div>
        
           
-          <table class="ui celled table" id = 'comInfo'>
+          <table class="ui celled table" >
            
             <tbody>
-              <tr>
-                <td>公司名称</td>
-                <td>Cell2</td>
-              </tr>
-              <tr>
-                <td>部署日期</td>
-                <td>Cell4</td>
-              </tr>
-              <tr>
-                <td>部署日期</td>
-                <td>Cell4</td>
-              </tr>
-              <tr>
-                <td>备注</td>
-                <td>Cell4</td>
-              </tr>
+                    <tr>
+                      <td>公司名称</td>
+                      <td>
+                          <div class="ui transparent input">
+                          <input id="companyName1" type="text" readonly="readonly" >
+                          </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>部署日期</td>
+                      <td>
+                          <div class="ui transparent input">
+                          <input id="create1" type="text" readonly="readonly" >
+                          </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>更新日期</td>
+                      <td>
+                        <div class="ui transparent input">
+                        <input id="update1" type="text" readonly="readonly" >
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>备注</td>
+                      <td>
+                        <div class="ui transparent input">
+                        <input type="text"  >
+                        </div>
+                      </td>
+                    </tr>
             </tbody>
          </table> 
 
@@ -113,7 +130,7 @@
                           <td>{{ company.create_time }}</td>
                           <td>{{ company.update_time }}</td>
                           <td width="15%">
-                            <a href="/edit?id={{company.id}}"><button class="small ui inverted green button" id=editBtn>Edit</button></a>
+                            <button class="small ui inverted green button" id="{{company.id}}" name="editBtn">Edit</button></a>
                             <a href="/rm?id={{company.id}}"><button class="small ui inverted red button" id=rmBtn>Delete</button></a>
                           </td>
                         </tr>
@@ -128,9 +145,24 @@
     <script src="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.js"></script>
     <script>
 
-      var btn = $('#editBtn')
-      btn.click(() => {
-        $('.ui.modal.add')
+      var btn = $('button[name="editBtn"]')
+      btn.click((e) => {
+        console.log(e.target.id)
+        var id = e.target.id
+        $.ajax({
+          url: '/edit?id='+id,
+          type: 'GET',
+          cache: false,
+          processData: false,
+          contentType: false
+        }).done(function(res) {
+          console.log(typeof res, JSON.parse(res))
+          var res = JSON.parse(res)
+          $('#companyName1').val(res.a)
+          $('#update1').val(res.c)
+          $('#create1').val(res.b)
+        }).fail(function(res) {})
+        $('#comInfo')
           .modal('show')
         ;
       })
@@ -142,18 +174,13 @@
           .modal('show')
         ;
       })
-    </script>
-
-
-    <script>
+  
       var btn = $('.ui.calendar')
       btn.click(() => {
         console.log('click')
         $('#example').calendar({type: 'date'});
       })
-    </script>
-
-    <script>
+ 
       var addBtn = $('#addBtn')
       addBtn.click(function () {
         var formData = new FormData()

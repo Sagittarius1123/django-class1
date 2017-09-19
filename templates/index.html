@@ -81,11 +81,56 @@
        
           
         
-         <div class="ui form" style="padding: 1rem;">
+         <div class="ui form" style="padding: 1rem;" >
             <div class="inline field">
               <label>企业名称</label>
-              <input id="companyName" type="text" placeholder="Company Name">
+              <input id="companyName" type="text" placeholder="Company Name" onsubmit="return check()" >
             </div>
+
+
+            <div class="inline field">
+              <label>运维负责人</label>
+              <div class="ui fluid selection dropdown" style="display: inline-block" id="selectName">
+              <input type="hidden" name="user">
+              <i class="dropdown icon" ></i>
+              <div class="default text">Select Principal</div>
+              <div class="menu">
+                <div class="item" data-value="周李洋">
+                  <img class="ui mini avatar image" src="{% static 'images/liyang.png' %}">
+                  李洋
+                </div>
+                <div class="item" data-value="余辰">
+                  <img class="ui mini avatar image" src="{% static 'images/yuchen.png' %}">
+                  余辰
+                </div>
+                <div class="item" data-value="景义">
+                  <img class="ui mini avatar image" src="{% static 'images/jingyi.png' %}">
+                  景义
+                </div>
+                <div class="item" data-value="刘川">
+                  <img class="ui mini avatar image" src="{% static 'images/liuchuan.png' %}">
+                  刘川
+                </div>
+                <div class="item" data-value="斯炀">
+                  <img class="ui mini avatar image" src="{% static 'images/siyang.png' %}">
+                  斯炀
+                </div>
+                <div class="item" data-value="俊奇">
+                  <img class="ui mini avatar image" src="{% static 'images/junqi.png' %}">
+                  俊奇
+                </div>
+                <div class="item" data-value="世威">
+                  <img class="ui mini avatar image" src="{% static 'images/shiwei.png' %}">
+                  世威
+                </div>
+              </div>
+            </div>
+
+              <!--<input id="ownerName" type="text" placeholder="Principal">-->
+            </div>
+
+
+
             <div class="inline field">
                 <label>首次部署日期</label>
               <div class="ui calendar " id="example" style="display: inline-block">
@@ -168,6 +213,18 @@
     <script src="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.js"></script>
     <script>
 
+      function check(){  
+            var nameValue=window.document.getElementById("companyName").value;  
+            if (nameValue == "") 
+            {  
+                window.alert("企业名不能为空!");  
+                return false;  
+            }  
+            return true;  
+      }  
+
+
+
       var btn = $('button[name="editBtn"]')
       btn.click((e) => {
         console.log(e.target.id)
@@ -208,6 +265,12 @@
         ;
       })
   
+      var btn = $('#selectName')
+      btn.click(() => {
+        console.log('click')
+        $('.ui.dropdown').dropdown();
+      })
+
       var btn = $('.ui.calendar')
       btn.click(() => {
         console.log('click')
@@ -219,9 +282,10 @@
         var formData = new FormData()
         var date = $('#date').val()
         var companyName = $('#companyName').val()
+        var ownerName = $('#ownerName').val()
         formData.append('date', date)
         formData.append('companyName', companyName)
-        
+        formData.append('ownerName', ownerName)
 
         $.ajax({
           url: '/add/',

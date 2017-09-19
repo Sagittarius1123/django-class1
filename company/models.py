@@ -9,7 +9,7 @@ class Company(models.Model):
     name = models.CharField(max_length=30)
     create_time = models.DateField('创建时间',auto_now=False)
     update_time = models.DateField('更新时间',auto_now=True)
-    owner = models.CharField(max_length=10,null=True)
+    ownername = models.CharField(max_length=10,null=True)
     accounts_version = models.CharField(max_length=30,null=True)
     accountmy_version = models.CharField(max_length=30,null=True)
     apps_version = models.CharField(max_length=30,null=True)
@@ -30,7 +30,7 @@ class Company(models.Model):
     report_version = models.CharField(max_length=30,null=True)
     remark = models.CharField(max_length=100,null=True)
 
-    
+
     def __unicode__(self):
         return self.name
 

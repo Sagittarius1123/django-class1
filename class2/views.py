@@ -16,11 +16,12 @@ def index(request):
 def add(request):
     if request.method == 'POST':
         companyName = request.POST['companyName']
+        ownerName = request.POST['ownerName']
         date = request.POST['date'].replace(',','').split()
         dtstr = "-".join(date) 
         dtstr = datetime.datetime.strptime(dtstr, "%B-%d-%Y").date()
         print type(dtstr)
-        obj = Company(name=companyName,create_time=dtstr,update_time='')
+        obj = Company(name=companyName,create_time=dtstr,update_time='',ownername=ownerName)
         obj.save()
         return render_to_response('index.html')
 

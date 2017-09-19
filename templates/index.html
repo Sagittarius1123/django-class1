@@ -22,7 +22,7 @@
         </div>
        
           
-          <table class="ui celled table" >
+          <table class="ui celled structured table" >
            
             <tbody>
                     <tr>
@@ -32,6 +32,12 @@
                           <input id="companyName1" type="text" readonly="readonly" >
                           </div>
                       </td>
+                      <td>运维负责人</td>
+                      <td>
+                        <div class="ui transparent input">
+                        <input id="ownerName1" type="text" >
+                        </div>
+                      </td>
                     </tr>
                     <tr>
                       <td>部署日期</td>
@@ -40,8 +46,6 @@
                           <input id="create1" type="text" readonly="readonly" >
                           </div>
                       </td>
-                    </tr>
-                    <tr>
                       <td>更新日期</td>
                       <td>
                         <div class="ui transparent input">
@@ -50,28 +54,41 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>备注</td>
+                      <td>Core Version</td>
                       <td>
                         <div class="ui transparent input">
-                        <input type="text"  >
+                        <input type="text" id="coreversion" >
                         </div>
+                      </td>
+                      <td>Web Version</td>
+                      <td>
+                        <div class="ui transparent input">
+                        <input type="text" id="webversion" >
+                        </div>
+                      </td>
+                      <td style="display:none" >
+                        <input id="hideid" type="text" >
                       </td>
                     </tr>
             </tbody>
          </table> 
 
+          <div class="ui form">
+          <div class="field">
+            <textarea placeholder="点击填写备注" rows="2" id="remarks"></textarea>
+          </div>
+        </div>
         
         <div class="actions">
           <div class="ui black deny button">
             Cancel
           </div>
-          <div class="ui positive right labeled icon button">
-            Done
+          <div class="ui positive right labeled icon button" id="updateBtn">
+            Update
             <i class="checkmark icon"></i>
           </div>
         </div>
       </div>
-
       <div class="ui modal detail">
         <i class="close icon"></i>
         <div class="header">
@@ -91,9 +108,9 @@
             <div class="inline field">
               <label>运维负责人</label>
               <div class="ui fluid selection dropdown" style="display: inline-block" id="selectName">
-              <input type="hidden" name="user">
+              <input type="hidden" name="user" id="ownerName" >
               <i class="dropdown icon" ></i>
-              <div class="default text">Select Principal</div>
+              <div class="default text" >Select Principal </div>
               <div class="menu">
                 <div class="item" data-value="周李洋">
                   <img class="ui mini avatar image" src="{% static 'images/liyang.png' %}">
@@ -188,17 +205,17 @@
       <div class="ui basic modal">
         <div class="ui icon header">
           <i class="archive icon"></i>
-          ！！！删除企业！！！
+          删除企业信息
         </div>
         <div class="content">
-          <p>再次确认是否要删除？</p>
+          <p>确认是否要删除？</p>
         </div>
         <div class="actions">
           <div class="ui grey basic cancel inverted button">
             <i class="remove icon"></i>
             Cancel
           </div>
-          <div class="ui red ok inverted button">
+          <div class="ui red ok inverted button" id="rmyesBtn">
             <i class="checkmark icon"></i>
             Yes！
           </div>
@@ -206,7 +223,7 @@
       </div>
 
 
-      <div class="ui right floated small primary labeled icon button" id=addcompanyBtn><i class="user icon"></i> 添加企业 </div>
+      <div class="ui right floated small primary labeled icon button" id="addcompanyBtn"><i class="user icon"></i> 添加企业 </div>
 
    
        
@@ -227,7 +244,7 @@
 
       var btn = $('button[name="editBtn"]')
       btn.click((e) => {
-        console.log(e.target.id)
+        // console.log(e.target.id)
         var id = e.target.id
         $.ajax({
           url: '/edit?id='+id,
@@ -236,13 +253,16 @@
           processData: false,
           contentType: false
         }).done(function(res) {
-          console.log(typeof res, JSON.parse(res))
+          // console.log(typeof res, JSON.parse(res))
           var res = JSON.parse(res)
           $('#companyName1').val(res.a)
           $('#update1').val(res.c)
           $('#create1').val(res.b)
+          $('#ownerName1').val(res.d)
+          $('#hideid').val(res.e)
         }).fail(function(res) {})
         $('#comInfo')
+          .modal('setting', 'closable', false)
           .modal('show')
         ;
       })
@@ -257,14 +277,28 @@
       })
 
       var btn = $('button[name="rmBtn"]')
-      btn.click(() => {
+      btn.click((e) => {
         console.log('click')
+        var id = e.target.id
+        console.log(id)
         $('.ui.basic.modal')
           .modal('setting', 'closable', false)
           .modal('show')
         ;
       })
   
+      var btn = $('#rmyesBtn')
+      btn.click(() => {
+         $.ajax({
+          url: '/rm?id='+id,
+          type: 'GET',
+          cache: false,
+          processData: false,
+          contentType: false
+        }).done(function(res) {
+        }).fail(function(res) {})
+      })
+
       var btn = $('#selectName')
       btn.click(() => {
         console.log('click')
@@ -298,6 +332,34 @@
           location.reload();
         }).fail(function(res) {})
       })
+
+      var updateBtn = $('#updateBtn')
+      updateBtn.click(function () {
+        var formData = new FormData()
+        var coreversion = $('#coreversion').val()
+        var webversion = $('#webversion').val()
+        var ownerName = $('#ownerName1').val()
+        var remarks = $('#remarks').val()
+        var id = $('#hideid').val
+        formData.append('coreversion', coreversion)
+        formData.append('webversion', webversion)
+        formData.append('ownerName', ownerName)
+        formData.append('remarks', remarks)
+        formData.append('id', id)
+
+
+        $.ajax({
+          url: '/update/',
+          type: 'POST',
+          cache: false,
+          data: formData,
+          processData: false,
+          contentType: false
+        }).done(function(res) {
+        }).fail(function(res) {})
+      })
+
+
     </script>
     
   </body>

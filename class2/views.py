@@ -17,12 +17,23 @@ def add(request):
     if request.method == 'POST':
         companyName = request.POST['companyName']
         ownerName = request.POST['ownerName']
+        print ownerName
         date = request.POST['date'].replace(',','').split()
         dtstr = "-".join(date) 
         dtstr = datetime.datetime.strptime(dtstr, "%B-%d-%Y").date()
         print type(dtstr)
         obj = Company(name=companyName,create_time=dtstr,update_time='',ownername=ownerName)
         obj.save()
+        return render_to_response('index.html')
+
+def update(request):
+    if request.method == 'POST':
+        # id = request.POST['id'] 
+        ownerName = request.POST['ownerName']    
+        coreversion = request.POST['coreversion']
+        webversion = request.POST['webversion']
+        remarks = request.POST['remarks']
+        print ownerName,coreversion,webversion,remarks
         return render_to_response('index.html')
 
 
@@ -47,6 +58,6 @@ def edit(request):
         companys = Company.objects.get(id=id)
         create_time = companys.create_time.strftime("%Y-%m-%d")
         update_time = companys.update_time.strftime("%Y-%m-%d")
-        data={"a": companys.name, "b":create_time,"c":update_time}
+        data={"a": companys.name, "b":create_time,"c":update_time,"d":companys.ownername,"e":id}
         print data
         return HttpResponse(json.dumps(data))

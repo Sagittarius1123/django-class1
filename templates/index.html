@@ -66,9 +66,7 @@
                         <input type="text" id="webversion" >
                         </div>
                       </td>
-                      <td style="display:none" >
-                        <input id="hideid" type="text" >
-                      </td>
+
                     </tr>
             </tbody>
          </table> 
@@ -88,6 +86,7 @@
             <i class="checkmark icon"></i>
           </div>
         </div>
+        <input id="updateid" type="hidden" value=""/>
       </div>
       <div class="ui modal detail">
         <i class="close icon"></i>
@@ -246,6 +245,7 @@
       btn.click((e) => {
         // console.log(e.target.id)
         var id = e.target.id
+        $('#updateid').val(id)
         $.ajax({
           url: '/edit?id='+id,
           type: 'GET',
@@ -259,7 +259,6 @@
           $('#update1').val(res.c)
           $('#create1').val(res.b)
           $('#ownerName1').val(res.d)
-          $('#hideid').val(res.e)
         }).fail(function(res) {})
         $('#comInfo')
           .modal('setting', 'closable', false)
@@ -267,9 +266,39 @@
         ;
       })
 
+      var updateBtn = $('#updateBtn')
+      updateBtn.click(function () {
+       
+        // id = $(e.target).data('id')
+        var formData = new FormData()
+        var coreversion = $('#coreversion').val()
+        var webversion = $('#webversion').val()
+        var ownerName = $('#ownerName1').val()
+        var remarks = $('#remarks').val()
+        var id = $('#updateid').val()
+        console.log(id)
+
+        formData.append('coreversion', coreversion)
+        formData.append('webversion', webversion)
+        formData.append('ownerName', ownerName)
+        formData.append('remarks', remarks)
+        formData.append('id', id)
+        
+
+
+        $.ajax({
+          url: '/update/',
+          type: 'POST',
+          cache: false,
+          data: formData,
+          processData: false,
+          contentType: false
+        }).done(function(res) {
+        }).fail(function(res) {})
+      })
+
       var btn = $('#addcompanyBtn')
       btn.click(() => {
-        console.log('click')
         $('.ui.modal.detail')
           .modal('setting', 'closable', false)
           .modal('show')
@@ -278,9 +307,9 @@
 
       var btn = $('button[name="rmBtn"]')
       btn.click((e) => {
-        console.log('click')
         var id = e.target.id
         console.log(id)
+        $('#rmyesBtn').data('id', id)
         $('.ui.basic.modal')
           .modal('setting', 'closable', false)
           .modal('show')
@@ -288,7 +317,9 @@
       })
   
       var btn = $('#rmyesBtn')
-      btn.click(() => {
+      btn.click((e) => {
+        id = $(e.target).data('id')
+        console.log(id)
          $.ajax({
           url: '/rm?id='+id,
           type: 'GET',
@@ -296,6 +327,7 @@
           processData: false,
           contentType: false
         }).done(function(res) {
+         location.reload();
         }).fail(function(res) {})
       })
 
@@ -333,31 +365,7 @@
         }).fail(function(res) {})
       })
 
-      var updateBtn = $('#updateBtn')
-      updateBtn.click(function () {
-        var formData = new FormData()
-        var coreversion = $('#coreversion').val()
-        var webversion = $('#webversion').val()
-        var ownerName = $('#ownerName1').val()
-        var remarks = $('#remarks').val()
-        var id = $('#hideid').val
-        formData.append('coreversion', coreversion)
-        formData.append('webversion', webversion)
-        formData.append('ownerName', ownerName)
-        formData.append('remarks', remarks)
-        formData.append('id', id)
-
-
-        $.ajax({
-          url: '/update/',
-          type: 'POST',
-          cache: false,
-          data: formData,
-          processData: false,
-          contentType: false
-        }).done(function(res) {
-        }).fail(function(res) {})
-      })
+      
 
 
     </script>

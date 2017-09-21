@@ -28,19 +28,22 @@ def add(request):
 
 def update(request):
     if request.method == 'POST':
-        # id = request.POST['id'] 
-        ownerName = request.POST['ownerName']    
-        coreversion = request.POST['coreversion']
-        webversion = request.POST['webversion']
-        remarks = request.POST['remarks']
-        print ownerName,coreversion,webversion,remarks
-        return render_to_response('index.html')
+        id = request.POST['id'] 
+        print id
+        company = Company.objects.get(id = id)  
+        company.ownername = request.POST['ownerName']  
+        company.coreversion = request.POST['coreversion']  
+        company.remarks =  request.POST['remarks']  
+        company.webversion = request.POST['webversion'] 
+        print company.ownername,company.coreversion,company.remarks,company.webversion
+        company.save()
+    return render_to_response('index.html')
 
 
 def rm(request):
     if request.method == 'GET':
         id = request.GET['id']
-        date = Company.objects.get(id=id) 
+        date = Company.objects.get(id=id)
         date.delete()
     return HttpResponseRedirect('/')
 
@@ -58,6 +61,6 @@ def edit(request):
         companys = Company.objects.get(id=id)
         create_time = companys.create_time.strftime("%Y-%m-%d")
         update_time = companys.update_time.strftime("%Y-%m-%d")
-        data={"a": companys.name, "b":create_time,"c":update_time,"d":companys.ownername,"e":id}
+        data={"a": companys.name, "b":create_time,"c":update_time,"d":companys.ownername}
         print data
         return HttpResponse(json.dumps(data))

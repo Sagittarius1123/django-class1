@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from company.models import *
-import datetime,json 
+import datetime,json,sqlite3
 @csrf_exempt 
 
 
@@ -29,14 +29,18 @@ def add(request):
 def update(request):
     if request.method == 'POST':
         id = request.POST['id'] 
-        print id
-        company = Company.objects.get(id = id)  
-        company.ownername = request.POST['ownerName']  
-        company.coreversion = request.POST['coreversion']  
-        company.remarks =  request.POST['remarks']  
-        company.webversion = request.POST['webversion'] 
-        print company.ownername,company.coreversion,company.remarks,company.webversion
+        # ownername = request.POST['ownerName']
+        # coreversion = request.POST['coreversion']  
+        remarks =  request.POST['remarks']  
+        webversion = request.POST['webversion'] 
+
+        company = Company.objects.get(id=id)
+        company.ownername = request.POST['ownerName']
+        company.coreversion = request.POST['coreversion']
+        company.remarks = remarks
+        company.webversion = webversion
         company.save()
+
     return render_to_response('index.html')
 
 

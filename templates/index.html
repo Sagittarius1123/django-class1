@@ -181,6 +181,9 @@
                   <th>公司名称</th>
                   <th>首次部署日期</th>
                   <th>上一次更新日期</th>
+                  <th>核心版本</th>
+                  <th>网页版本</th>
+                  <th>Remark</th>
                   <th>-</th>
                 </tr></thead>
                 <tbody>
@@ -190,6 +193,9 @@
                           <td>{{ company.name }}</td>
                           <td>{{ company.create_time }}</td>
                           <td>{{ company.update_time }}</td>
+                          <td>{{ company.coreversion }}</td>
+                          <td>{{ company.webversion }}</td>
+                          <td>{{ company.remarks }}</td>
                           <td width="15%">
                             <button class="small ui inverted green button" id="{{company.id}}" name="editBtn">Edit</button>
                             <!--<a href="/rm?id={{company.id}}">-->

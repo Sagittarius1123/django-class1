@@ -18,11 +18,13 @@ class Company(models.Model):
     def __unicode__(self):
         return self.name
 
-class Detail(models.Model):
+class History(models.Model):
     name = models.CharField(max_length=30)
-    create_time = models.DateTimeField('创建时间',auto_now=True)
-    update_time = models.DateTimeField('更新时间',auto_now=True)
-    account_version = models.CharField(max_length=30)
+    create_time = models.DateField('创建时间',auto_now=False)
+    update_time = models.DateField('更新时间',auto_now=True)
+    ownername = models.CharField(max_length=10,null=True)
+    coreversion = models.CharField(max_length=30,null=True)
+    webversion = models.CharField(max_length=30,null=True)
 
     def __unicode__(self):
         return self.name

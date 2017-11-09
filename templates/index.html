@@ -57,13 +57,13 @@
                       <td>Core Version</td>
                       <td>
                         <div class="ui transparent input">
-                        <input type="text" id="coreversion" >
+                        <input id="coreversion1" type="text"  >
                         </div>
                       </td>
                       <td>Web Version</td>
                       <td>
                         <div class="ui transparent input">
-                        <input type="text" id="webversion" >
+                        <input id="webversion1" type="text" >
                         </div>
                       </td>
 
@@ -73,7 +73,7 @@
 
           <div class="ui form">
           <div class="field">
-            <textarea placeholder="点击填写备注" rows="2" id="remarks"></textarea>
+            <textarea placeholder="点击填写备注" rows="2" id="remarks1"></textarea>
           </div>
         </div>
         
@@ -171,7 +171,7 @@
       </div>
 
 
-      
+
 
 
       <table class="ui celled table">
@@ -181,8 +181,8 @@
                   <th>公司名称</th>
                   <th>首次部署日期</th>
                   <th>上一次更新日期</th>
-                  <th>核心版本</th>
-                  <th>网页版本</th>
+                  <th>API版本</th>
+                  <th>前端版本</th>
                   <th>Remark</th>
                   <th>-</th>
                 </tr></thead>
@@ -265,6 +265,9 @@
           $('#update1').val(res.c)
           $('#create1').val(res.b)
           $('#ownerName1').val(res.d)
+          $('#coreversion1').val(res.e)
+          $('#webversion1').val(res.f)
+          $('#remarks1').val(res.g)
         }).fail(function(res) {})
         $('#comInfo')
           .modal('setting', 'closable', false)
@@ -277,10 +280,10 @@
        
         // id = $(e.target).data('id')
         var formData = new FormData()
-        var coreversion = $('#coreversion').val()
-        var webversion = $('#webversion').val()
+        var coreversion = $('#coreversion1').val()
+        var webversion = $('#webversion1').val()
         var ownerName = $('#ownerName1').val()
-        var remarks = $('#remarks').val()
+        var remarks = $('#remarks1').val()
         var id = $('#updateid').val()
         console.log(id)
 
@@ -300,6 +303,7 @@
           processData: false,
           contentType: false
         }).done(function(res) {
+            location.reload();
         }).fail(function(res) {})
       })
 

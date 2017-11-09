@@ -71,6 +71,7 @@ def edit(request):
         companys = Company.objects.get(id=id)
         create_time = companys.create_time.strftime("%Y-%m-%d")
         update_time = companys.update_time.strftime("%Y-%m-%d")
-        data={"a": companys.name, "b":create_time,"c":update_time,"d":companys.ownername}
+
+        data={"a": companys.name, "b":create_time,"c":update_time,"d":companys.ownername,"e":companys.coreversion,"f":companys.webversion,"g":companys.remarks}
         print data
         return HttpResponse(json.dumps(data))

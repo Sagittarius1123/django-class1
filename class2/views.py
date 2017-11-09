@@ -31,22 +31,24 @@ def update(request):
         id = request.POST['id'] 
         # ownername = request.POST['ownerName']
         # coreversion = request.POST['coreversion']  
-        remarks =  request.POST.get('remarks', '')
-        webversion = request.POST.get('webversion', '') 
+         
 
         company = Company.objects.get(id=id)
         company.ownername = request.POST.get('ownerName', '')
         company.coreversion = request.POST.get('coreversion', '')
-        company.remarks = remarks
-        company.webversion = webversion
-        print(company.name) 
-        print(company.ownername) 
-        print(company.coreversion) 
-        print(company.remarks) 
-        print(company.webversion) 
-        print(company.id)
+        company.remarks =  request.POST.get('remarks', '')
+        company.webversion = request.POST.get('webversion', '')
         company.save()
 
+        companyname = request.POST.get('companyname', '')
+        ownername = request.POST.get('ownerName', '')
+        coreversion = request.POST.get('coreversion', '')
+        remarks =  request.POST.get('remarks', '')
+        webversion = request.POST.get('webversion', '')
+        create_time =  request.POST.get('create', '')
+        update_time = request.POST.get('update', '')
+        obj = History(name=companyname,create_time=create_time,update_time=update_time,ownername=ownername,webversion=webversion,coreversion=coreversion)
+        obj.save()
     return render_to_response('index.html')
 
 

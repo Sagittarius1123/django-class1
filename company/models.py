@@ -20,8 +20,8 @@ class Company(models.Model):
 
 class History(models.Model):
     name = models.CharField(max_length=30)
-    create_time = models.DateField('创建时间',auto_now=False)
-    update_time = models.DateField('更新时间',auto_now=True)
+    create_time = models.CharField(max_length=30,null=True)
+    update_time = models.CharField(max_length=30,null=True)
     ownername = models.CharField(max_length=10,null=True)
     coreversion = models.CharField(max_length=30,null=True)
     webversion = models.CharField(max_length=30,null=True)

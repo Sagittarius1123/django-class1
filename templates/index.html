@@ -2,6 +2,7 @@
 
   {% load staticfiles %}
   <head>
+    <meta charset="UTF-8">
     <title>私有部署客户信息维护</title>
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     <link href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
@@ -171,7 +172,30 @@
       </div>
 
 
-
+      <div class="ui modal" id = "history">
+         <table class="ui selectable inverted table">
+          <thead>
+            <tr>
+              <th>公司名称</th>
+              <th>部署日期</th>
+              <th>更新日期</th>
+              <th>API版本</th>
+              <th>前端版本</th>
+            </tr>
+          </thead>
+          <tbody>
+             {% for history in historys %}
+             <tr>
+                  <td>{{ history.name }}</td>
+                  <td>{{ history.create_time }}</td>
+                  <td>{{ history.update_time }}</td>
+                  <td>{{ history.coreversion }}</td>
+                  <td>{{ history.webversion }}</td>
+             </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
 
       <table class="ui celled table">
@@ -196,10 +220,10 @@
                           <td>{{ company.coreversion }}</td>
                           <td>{{ company.webversion }}</td>
                           <td>{{ company.remarks }}</td>
-                          <td width="15%">
-                            <button class="small ui inverted green button" id="{{company.id}}" name="editBtn">Edit</button>
-                            <!--<a href="/rm?id={{company.id}}">-->
-                            <button class="small ui inverted red button" id="{{company.id}}" name="rmBtn">Delete</button>
+                          <td width="21%">
+                            <button class="small ui green button" id="{{company.id}}" name="editBtn">Edit</button>
+                            <button class="small ui red button" id="{{company.id}}" name="rmBtn">Delete</button>
+                            <button class="small ui grey button" id="{{company.id}}" name="historyBtn">History</button>
                           </td>
                         </tr>
                       {% endfor %}
@@ -332,6 +356,34 @@
         ;
       })
   
+      var btn = $('button[name="historyBtn"]')
+      btn.click((e) => {
+        console.log(e.target.id)
+         var id = e.target.id
+        $('#updateid').val(name)
+        $.ajax({
+          url: '/history?id='+id,
+          type: 'GET',
+          cache: false,
+          processData: false,
+          contentType: false
+        }).done(function(res) {
+          // console.log(typeof res, JSON.parse(res))
+          var res = JSON.parse(res)
+          $('#companyName1').val(res.a)
+          $('#update1').val(res.c)
+          $('#create1').val(res.b)
+          $('#ownerName1').val(res.d)
+          $('#coreversion1').val(res.e)
+          $('#webversion1').val(res.f)
+          $('#remarks1').val(res.g)
+        }).fail(function(res) {})
+       $('#history')
+          .modal('show')
+        ;
+      })
+
+
       var btn = $('#rmyesBtn')
       btn.click((e) => {
         id = $(e.target).data('id')
@@ -359,6 +411,9 @@
         $('#example').calendar({type: 'date'});
       })
  
+
+  
+
       var addBtn = $('#addBtn')
       addBtn.click(function () {
         var formData = new FormData()

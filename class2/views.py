@@ -9,8 +9,11 @@ import datetime,json,sqlite3
 
 def index(request):
     companys = Company.objects.all()
+    historys = History.objects.all()
     data = {'companys': companys}
-    return render_to_response('index.html',data)
+    data2 = {'historys': historys}
+    return render_to_response('index.html',data,data2)
+
 
 
 def add(request):
@@ -76,4 +79,11 @@ def edit(request):
 
         data={"a": companys.name, "b":create_time,"c":update_time,"d":companys.ownername,"e":companys.coreversion,"f":companys.webversion,"g":companys.remarks}
         print data
+        return HttpResponse(json.dumps(data))
+
+def history(request):
+    if request.method == 'GET':
+        name = request.GET['name']
+        historys = History.objects.get(name=name)
+       
         return HttpResponse(json.dumps(data))

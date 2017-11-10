@@ -83,7 +83,10 @@ def edit(request):
 
 def history(request):
     if request.method == 'GET':
-        name = request.GET['name']
-        historys = History.objects.get(name=name)
-       
+        id = request.GET['id']
+        companys = Company.objects.get(id=id)
+        name = companys.name
+        historys = History.objects.filter(name=name)
+        print type(historys)
+        print historys
         return HttpResponse(json.dumps(data))

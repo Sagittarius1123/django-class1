@@ -87,6 +87,9 @@ def history(request):
         companys = Company.objects.get(id=id)
         name = companys.name
         historys = History.objects.filter(name=name)
-        print type(historys)
-        print historys
-        return HttpResponse(json.dumps(data))
+        results = []
+        for i in historys:
+             data = {"a":i.name,"b":i.create_time,"c":i.update_time,"d":i.ownername,"e":i.coreversion,"f":i.webversion}
+             print data
+             results.append(data)
+        return HttpResponse(json.dumps(results))

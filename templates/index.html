@@ -179,20 +179,12 @@
               <th>公司名称</th>
               <th>部署日期</th>
               <th>更新日期</th>
+              <th>运维负责人</th>
               <th>API版本</th>
               <th>前端版本</th>
             </tr>
           </thead>
-          <tbody>
-             {% for history in historys %}
-             <tr>
-                  <td>{{ history.name }}</td>
-                  <td>{{ history.create_time }}</td>
-                  <td>{{ history.update_time }}</td>
-                  <td>{{ history.coreversion }}</td>
-                  <td>{{ history.webversion }}</td>
-             </tr>
-              {% endfor %}
+          <tbody id ="historysList">
           </tbody>
         </table>
       </div>
@@ -370,13 +362,26 @@
         }).done(function(res) {
           // console.log(typeof res, JSON.parse(res))
           var res = JSON.parse(res)
-          $('#companyName1').val(res.a)
+          console.log(res.length, JSON.stringify(res))
+          var html = ''
+          for (var i = 0; i < res.length; i++) {
+            console.log(res[i])
+            html += '<tr><td>'+ res[i].a +'</td><td>'+ res[i].b +'</td><td>'+ res[i].c +'</td><td>'+ res[i].d +'</td><td>'+ res[i].e +'</td><td>'+ res[i].f +'</td>'
+          }
+          $('#historysList').html(html)
+          // <tr>
+          //         <td>{{ companyName }}</td>
+          //         <td>{{ history.create_time }}</td>
+          //         <td>{{ history.update_time }}</td>
+          //         <td>{{ history.coreversion }}</td>
+          //         <td>{{ history.webversion }}</td>
+          //    </tr>
+          var companyName = val(res.a)
           $('#update1').val(res.c)
           $('#create1').val(res.b)
           $('#ownerName1').val(res.d)
           $('#coreversion1').val(res.e)
           $('#webversion1').val(res.f)
-          $('#remarks1').val(res.g)
         }).fail(function(res) {})
        $('#history')
           .modal('show')

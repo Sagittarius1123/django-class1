@@ -21,8 +21,6 @@
         <div class="header">
           Edit
         </div>
-       
-          
           <table class="ui celled structured table" >
            
             <tbody>
@@ -104,7 +102,6 @@
               <input id="companyName" type="text" placeholder="Company Name" onsubmit="return check()" >
             </div>
 
-
             <div class="inline field">
               <label>运维负责人</label>
               <div class="ui fluid selection dropdown" style="display: inline-block" id="selectName">
@@ -141,8 +138,7 @@
                   世威
                 </div>
               </div>
-            </div>
-
+              </div>
               <!--<input id="ownerName" type="text" placeholder="Principal">-->
             </div>
 
@@ -190,6 +186,77 @@
       </div>
 
 
+      <div class="ui fluid card" style="padding: 1em;">
+          <form class="ui form" action="/search" method="get">
+            <div class="five fields">
+              <div class="field">
+                <label>公司名称</label>
+                <input type="text" name="company" placeholder="客户名称"/>
+              </div>
+              <div class="field">
+                <label>部署时间</label>
+               <div class="ui calendar " id="calendar" style="display: inline-block">
+                  <div class="ui input left icon">
+                  <i class="calendar icon"></i>
+                  <input id="date" type="text" placeholder="Date" value="July 1, 2017">
+                  </div>   
+                </div> 
+              </div>
+              
+              <div class="field">
+                <label>API版本</label>
+                <input type="text" name="version" placeholder="9.0.0"/>
+              </div>
+              <div class="field">
+                <label>前端版本</label>
+                <input type="text" name="version" placeholder="9.0.0"/>
+              </div>
+              <div class="field">
+                <label>运维负责人</label>
+                <div class="ui fluid selection dropdown" style="display: inline-block" id="selectName1">
+                <input type="hidden" name="user" id="ownerName" >
+                <i class="dropdown icon" ></i>
+                <div class="default text" >Select Principal </div>
+                <div class="menu">
+                  <div class="item" data-value="周李洋">
+                    <img class="ui mini avatar image" src="{% static 'images/liyang.png' %}">
+                    李洋
+                  </div>
+                  <div class="item" data-value="余辰">
+                    <img class="ui mini avatar image" src="{% static 'images/yuchen.png' %}">
+                    余辰
+                  </div>
+                  <div class="item" data-value="景义">
+                    <img class="ui mini avatar image" src="{% static 'images/jingyi.png' %}">
+                    景义
+                  </div>
+                  <div class="item" data-value="刘川">
+                    <img class="ui mini avatar image" src="{% static 'images/liuchuan.png' %}">
+                    刘川
+                  </div>
+                  <div class="item" data-value="斯炀">
+                    <img class="ui mini avatar image" src="{% static 'images/siyang.png' %}">
+                    斯炀
+                  </div>
+                  <div class="item" data-value="俊奇">
+                    <img class="ui mini avatar image" src="{% static 'images/junqi.png' %}">
+                    俊奇
+                  </div>
+                  <div class="item" data-value="世威">
+                    <img class="ui mini avatar image" src="{% static 'images/shiwei.png' %}">
+                    世威
+                  </div>
+                </div>
+                </div>
+                <!--<input id="ownerName" type="text" placeholder="Principal">-->
+              </div>
+            </div>
+            <button class="small ui right floated green button" type="submit">Search</button>
+            <!-- </div> -->
+          </form>
+      </div>
+
+
       <table class="ui celled table">
                 <thead>
                   <tr>
@@ -213,9 +280,9 @@
                           <td>{{ company.webversion }}</td>
                           <td>{{ company.remarks }}</td>
                           <td width="21%">
-                            <button class="small ui green button" id="{{company.id}}" name="editBtn">Edit</button>
-                            <button class="small ui red button" id="{{company.id}}" name="rmBtn">Delete</button>
-                            <button class="small ui grey button" id="{{company.id}}" name="historyBtn">History</button>
+                            <button class="small ui grey right floated button" id="{{company.id}}" name="historyBtn">History</button>
+                            <button class="small ui red right floated button" id="{{company.id}}" name="rmBtn">Delete</button>
+                            <button class="small ui green right floated button" id="{{company.id}}" name="editBtn">Edit</button>
                           </td>
                         </tr>
                       {% endfor %}
@@ -410,7 +477,18 @@
         $('.ui.dropdown').dropdown();
       })
 
+      var btn = $('#selectName1')
+      btn.click(() => {
+        console.log('click')
+        $('.ui.dropdown').dropdown();
+      })
+
       var btn = $('.ui.calendar')
+      btn.click(() => {
+        console.log('click')
+        $('#example').calendar({type: 'date'});
+      })
+      var btn = $('#calendar')
       btn.click(() => {
         console.log('click')
         $('#example').calendar({type: 'date'});

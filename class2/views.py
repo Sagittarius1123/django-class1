@@ -10,9 +10,12 @@ import datetime,json,sqlite3
 def index(request):
     companys = Company.objects.all()
     historys = History.objects.all()
-    data = {'companys': companys}
-    data2 = {'historys': historys}
-    return render_to_response('index.html',data,data2)
+    companyscount = Company.objects.all().count()
+    historyscount = History.objects.all().count()
+    data = {'companys': companys,'historys': historys,'companyscount':companyscount,'historyscount':historyscount}
+    # data2 = {'historys': historys}
+
+    return render_to_response('index.html',data)
 
 
 

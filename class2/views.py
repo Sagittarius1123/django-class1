@@ -96,3 +96,15 @@ def history(request):
              print data
              results.append(data)
         return HttpResponse(json.dumps(results))
+
+
+def search(request):
+    if request.method == 'POST':
+        name = request.POST['searchname']
+        coreversion = request.POST['searchcore']
+        webversion = request.POST['searchweb']
+        ownername = request.POST['searchownername']
+        print name,coreversion,webversion,ownername
+
+
+        return render_to_response('index.html')

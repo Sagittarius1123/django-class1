@@ -186,11 +186,11 @@
 
 
       <div class="ui fluid card" style="padding: 1em;">
-          <form class="ui form" action="/search" method="get">
+          <form class="ui form"  method="post">
             <div class="five fields">
               <div class="field">
                 <label>公司名称</label>
-                <input type="text" name="company" placeholder="客户名称"/>
+                <input type="text" name="searchname" id="searchname" placeholder="客户名称"/>
               </div>
               <div class="field">
                 <label>部署时间</label>
@@ -204,16 +204,16 @@
               
               <div class="field">
                 <label>API版本</label>
-                <input type="text" name="version" placeholder="9.0.0"/>
+                <input type="text" name="coreversion" id="searchcore" placeholder="9.0.0"/>
               </div>
               <div class="field">
                 <label>前端版本</label>
-                <input type="text" name="version" placeholder="9.0.0"/>
+                <input type="text" name="webversion" id="searchweb" placeholder="9.0.0"/>
               </div>
               <div class="field">
                 <label>运维负责人</label>
                 <div class="ui fluid selection dropdown" style="display: inline-block" id="selectName1">
-                <input type="hidden" name="user" id="ownerName" >
+                <input type="hidden" name="user" id="searchownername" >
                 <i class="dropdown icon" ></i>
                 <div class="default text" >Select Principal </div>
                 <div class="menu">
@@ -250,7 +250,7 @@
                 <!--<input id="ownerName" type="text" placeholder="Principal">-->
               </div>
             </div>
-            <button class="small ui right floated green button" type="submit">Search</button>
+            <button class="small ui right floated green button" type="submit" id="searchBtn" >Search</button>
             <!-- </div> -->
           </form>
       </div>
@@ -317,13 +317,13 @@
           <div class="value">
             {{ companyscount }}
           </div>
-          <div class="label">企业数量 </div>
+          <div class="label">现有企业数量 </div>
         </div>
         <div class="blue statistic">
           <div class="value">
             {{ historyscount }}
           </div>
-          <div class="label">总计更新次数 </div>
+          <div class="label">累计更新次数 </div>
         </div>
       </div>
    
@@ -449,13 +449,6 @@
             html += '<tr><td>'+ res[i].a +'</td><td>'+ res[i].b +'</td><td>'+ res[i].c +'</td><td>'+ res[i].d +'</td><td>'+ res[i].e +'</td><td>'+ res[i].f +'</td>'
           }
           $('#historysList').html(html)
-          // <tr>
-          //         <td>{{ companyName }}</td>
-          //         <td>{{ history.create_time }}</td>
-          //         <td>{{ history.update_time }}</td>
-          //         <td>{{ history.coreversion }}</td>
-          //         <td>{{ history.webversion }}</td>
-          //    </tr>
           var companyName = val(res.a)
           $('#update1').val(res.c)
           $('#create1').val(res.b)
@@ -532,7 +525,31 @@
         }).fail(function(res) {})
       })
 
-      
+
+      var searchBtn = $('#searchBtn')
+      searchBtn.click(function () {
+        var formData = new FormData()
+        var searchname = $('#searchname').val()
+        var searchcore = $('#searchcore').val()
+        var searchweb = $('#searchweb').val()
+        var searchownername = $('#searchownername').val()
+        formData.append('searchownername', searchownername)
+        formData.append('searchname', searchname)
+        formData.append('searchcore', searchcore)
+        formData.append('searchweb', searchweb)
+       
+
+        $.ajax({
+          url: '/search/',
+          type: 'POST',
+          cache: false,
+          data: formData,
+          processData: false,
+          contentType: false
+        }).done(function(res) {
+          location.reload();
+        }).fail(function(res) {})
+      })
 
 
     </script>

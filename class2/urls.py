@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^history/',views.history),
     url(r'^update/',views.update),
     url(r'^admin/', admin.site.urls),
+    url(r'^search/',views.search),
 
 ]
